@@ -1,0 +1,21 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+apply from: "${rootDir}/common.gradle"
+
+android {
+    namespace 'com.note.features.dynamic_background'
+    buildFeatures.compose = true
+    composeOptions.kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+}
+
+dependencies {
+    implementation project(path: ':libraries:dynamic-background')
+    implementation project(path: ':features:core')
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    testImplementation libs.bundles.test.unit
+}

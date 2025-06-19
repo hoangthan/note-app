@@ -1,0 +1,18 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+apply from: "${rootDir}/common.gradle"
+
+android {
+    namespace 'com.note.libraries.dynamic_background'
+}
+
+dependencies {
+    implementation project(path: ':libraries:note')
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    testImplementation libs.bundles.test.unit
+}

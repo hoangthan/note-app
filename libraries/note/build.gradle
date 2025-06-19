@@ -1,0 +1,22 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+apply from: "${rootDir}/common.gradle"
+
+android {
+    namespace 'com.note.libraries.note'
+}
+
+dependencies {
+    api project(path: ':libraries:core')
+    kapt libs.androidx.room.compiler
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+    implementation libs.androidx.ui
+    implementation libs.bundles.paging
+    implementation libs.bundles.room
+    testImplementation libs.bundles.test.unit
+}

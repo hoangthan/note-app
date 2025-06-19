@@ -1,0 +1,28 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+rootProject.name = "NoteApp"
+
+include ':app'
+
+include ':libraries:core'
+include ':libraries:note'
+include ':libraries:dynamic-background'
+
+include ':features:core'
+include ':features:note'
+include ':features:dynamic-background'

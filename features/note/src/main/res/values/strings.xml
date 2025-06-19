@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notes_title">Notes</string>
+    <string name="search_notes">Search notes</string>
+    <string name="sort">Sort</string>
+    <string name="latest_first">Latest first</string>
+    <string name="oldest_first">Oldest first</string>
+    <string name="add_note">Add Note</string>
+    <string name="delete_note">Delete Note</string>
+    <string name="delete_confirmation">Are you sure you want to delete this note?</string>
+    <string name="delete_note_confirmation">Are you sure you want to delete this note?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="save">Save</string>
+    <string name="completed">Completed</string>
+    <string name="not_completed">Not Completed</string>
+    <string name="empty_notes_message">No notes yet. Tap the + button to add one.</string>
+    <string name="sort_notes">Toggle sort direction</string>
+    <string name="no_description">No description</string>
+    <string name="common_error">Error when loading notes</string>
+</resources>
