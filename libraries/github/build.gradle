@@ -8,14 +8,13 @@ plugins {
 apply from: "${rootDir}/common.gradle"
 
 android {
-    namespace 'com.git.libraries.network'
+    namespace 'com.git.libraries.github'
 }
 
 dependencies {
     implementation project(path: ':libraries:core')
-    implementation libs.coroutines
+    implementation project(path: ':libraries:network')
     implementation libs.hilt.android
-    api libs.bundles.networking
     kapt libs.hilt.compiler
     kapt libs.moshi.kotlin.codegen
 }

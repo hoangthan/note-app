@@ -3,6 +3,7 @@ package com.git.assessment
 import com.git.assessment.config.ConnectionConfig
 import com.git.assessment.interceptor.AuthInterceptor
 import com.git.libraries.network.BuildConfig
+import com.skydoves.sandwich.ApiResponse
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -71,6 +72,7 @@ class NetworkModule {
         callAdapterFactory: CallAdapter.Factory,
         converterFactory: Converter.Factory
     ): Retrofit {
+        ApiResponse
         return Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(converterFactory)

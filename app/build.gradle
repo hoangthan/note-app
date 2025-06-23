@@ -28,5 +28,4 @@ dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
     implementation project(path: ':features:core')
-    implementation project(path: ':libraries:network')
 }
