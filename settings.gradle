@@ -22,3 +22,4 @@ include ':app'
 include ':libraries:core'
 
 include ':features:core'
+include ':libraries:network'

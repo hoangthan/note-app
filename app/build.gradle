@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.kotlin.compose)
     id 'com.google.dagger.hilt.android'
     id 'kotlin-kapt'
 }
@@ -20,10 +21,6 @@ android {
         compose true
         buildConfig true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion libs.versions.composeCompiler.get()
-    }
 }
 
 dependencies {
@@ -31,4 +28,5 @@ dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
     implementation project(path: ':features:core')
+    implementation project(path: ':libraries:network')
 }
