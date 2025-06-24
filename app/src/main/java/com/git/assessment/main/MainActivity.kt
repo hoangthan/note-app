@@ -14,7 +14,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.git.features.core.ui.ComposeAppTheme
+import com.features.github.searchuser.SearchUserScreen
+import com.git.features.core.ui.style.ComposeAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(WindowInsets.systemBars.asPaddingValues())
                     ) {
-                        //NoteListScreen()
+                        SearchUserScreen()
                     }
                 }
             }

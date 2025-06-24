@@ -1,0 +1,29 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    alias(libs.plugins.kotlin.compose)
+    id 'kotlin-kapt'
+}
+
+apply from: "${rootDir}/common.gradle"
+
+android {
+    namespace 'com.git.features.github'
+    buildFeatures.compose = true
+}
+
+dependencies {
+    implementation project(path: ':libraries:core')
+    implementation project(path: ':libraries:github')
+    implementation project(path: ':features:core')
+    implementation libs.hilt.android
+    implementation libs.paging.compose
+    implementation libs.paging.runtime
+    kapt libs.hilt.compiler
+    
+    // Test dependencies
+    testImplementation libs.mockk
+    testImplementation libs.turbine
+    testImplementation libs.coroutines.test
+    testImplementation libs.bundles.test.unit
+}

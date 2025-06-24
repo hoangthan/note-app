@@ -17,11 +17,19 @@ data class SearchUserParam(
     val page: Int,
 )
 
-class SearchUserUseCase @Inject constructor(
-    private val githubRepository: GithubRepository
-) {
+interface SearchUserUseCase {
+    suspend operator fun invoke(param: SearchUserParam): Result<SearchUserError, List<GithubUser>>
+}
 
-    suspend operator fun invoke(param: SearchUserParam): Result<SearchUserError, List<GithubUser>> {
+internal class SearchUserUseCaseImpl @Inject constructor(
+    private val githubRepository: GithubRepository
+) : SearchUserUseCase {
+
+    override suspend operator fun invoke(param: SearchUserParam): Result<SearchUserError, List<GithubUser>> {
+        if (param.keyword.isBlank()) {
+            return Result.Success(emptyList())
+        }
+
         return githubRepository.searchUsers(
             query = param.keyword,
             limit = param.limit,

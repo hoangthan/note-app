@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Search User Screen -->
+    <string name="search_github_users">Search GitHub users</string>
+    <string name="search_placeholder">Search GitHub users…</string>
+    <string name="search_icon_description">Search</string>
+    <string name="clear_search_description">Clear search</string>
+    <string name="user_avatar_description">User avatar</string>
+    <string name="no_users_found">No users found</string>
+    <string name="try_different_search">Try a different search term</string>
+    <string name="enter_username_to_start">Enter a username to start searching</string>
+
+    <!-- Error Messages -->
+    <string name="error_rate_limit_exceeded">You are searching too much. Please slow down</string>
+    <string name="error_invalid_query">Invalid search query. Please try a different search term.</string>
+    <string name="error_load_data">Failed to load data</string>
+    <string name="retry">Retry</string>
+</resources>

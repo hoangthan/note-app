@@ -15,6 +15,7 @@ android {
 dependencies {
     api project(path: ':libraries:core')
     api libs.bundles.lifecycle
+    api libs.coil.compose
     api platform(libs.androidx.compose.bom)
     api libs.bundles.android.core
     api libs.bundles.compose

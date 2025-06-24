@@ -4,6 +4,7 @@ import com.git.assessment.config.ConnectionConfig
 import com.git.assessment.interceptor.AuthInterceptor
 import com.git.libraries.network.BuildConfig
 import com.skydoves.sandwich.ApiResponse
+import com.skydoves.sandwich.retrofit.adapters.ApiResponseCallAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -67,17 +68,22 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    internal fun provideCallAdapterFactory(): CallAdapter.Factory {
+        return ApiResponseCallAdapterFactory.create()
+    }
+
+    @Provides
+    @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         callAdapterFactory: CallAdapter.Factory,
         converterFactory: Converter.Factory
     ): Retrofit {
-        ApiResponse
         return Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(converterFactory)
             .addCallAdapterFactory(callAdapterFactory)
-            .baseUrl("https://google.com")
+            .baseUrl("https://api.github.com/")
             .build()
     }
 }

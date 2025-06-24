@@ -17,4 +17,10 @@ dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
     kapt libs.moshi.kotlin.codegen
+
+    // Test dependencies
+    testImplementation libs.mockk
+    testImplementation libs.turbine
+    testImplementation libs.coroutines.test
+    testImplementation libs.bundles.test.unit
 }
