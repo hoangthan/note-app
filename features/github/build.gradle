@@ -18,15 +18,11 @@ dependencies {
     implementation project(path: ':libraries:github')
     implementation project(path: ':features:core')
     implementation libs.hilt.android
-    implementation libs.paging.compose
-    implementation libs.paging.runtime
+    implementation libs.bundles.paging
     implementation libs.bundles.navigation
     implementation(libs.serialization)
     kapt libs.hilt.compiler
 
     // Test dependencies
-    testImplementation libs.mockk
-    testImplementation libs.turbine
-    testImplementation libs.coroutines.test
-    testImplementation libs.bundles.test.unit
+    testImplementation libs.bundles.test
 }

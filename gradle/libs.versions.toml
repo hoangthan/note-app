@@ -135,6 +135,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+paging-testing = { group = "androidx.paging", name = "paging-testing", version.ref = "paging" }
 
 [bundles]
 android-core = ["android-coreKtx", "android-appCompat", "android-material", "android-fragment", "androidx-foundation-android", "material-window-size"]
@@ -144,7 +145,7 @@ lifecycle = ["lifecycle-runtime", "lifecycle-viewmodel", "lifecycle-savedstate",
 networking = ["retrofit", "retrofit-moshi", "okhttp", "okhttp-logging", "moshi", "moshi-kotlin", "sandwich-retrofit"]
 paging = ["paging-compose", "paging-runtime"]
 room = ["androidx-room-runtime", "androidx-room-ktx", "androidx-room-paging"]
-test-unit = ["junit", "mockk", "coroutines-test", "turbine"]
+test = ["junit", "mockk", "coroutines-test", "turbine", "paging-testing"]
 
 [plugins]
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

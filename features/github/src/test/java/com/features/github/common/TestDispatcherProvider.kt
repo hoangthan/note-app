@@ -1,4 +1,4 @@
-package com.features.github.searchuser
+package com.features.github.common
 
 import com.git.data.core.coroutine.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
