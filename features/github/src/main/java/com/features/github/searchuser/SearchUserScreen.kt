@@ -32,7 +32,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -46,13 +45,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.git.features.core.ui.components.SafeAreaScaffold
 import com.git.features.core.ui.style.Dimens
 import com.git.features.core.ui.utils.toErrorString
 import com.git.features.github.R
@@ -62,7 +62,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun SearchUserScreen(
-    viewModel: SearchUserViewModel = viewModel(),
+    viewModel: SearchUserViewModel = hiltViewModel(),
     onUserClick: (String) -> Unit = {},
     onNavigateBack: () -> Unit = {}
 ) {
@@ -81,23 +81,22 @@ fun SearchUserScreen(
         }
     }
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
+    SafeAreaScaffold {
         Box(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(Dimens.mediumPadding)
+                    .padding(horizontal = Dimens.size16),
             ) {
+                Spacer(modifier = Modifier.height(Dimens.size16))
+
                 SearchBar(
                     query = viewState.query,
                     onQueryChange = { viewModel.dispatchEvent(SearchUserViewEvent.Search(it)) },
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(Dimens.largeSpacing))
+                Spacer(modifier = Modifier.height(Dimens.size16))
 
                 Box(modifier = Modifier.fillMaxSize()) {
                     when {
@@ -118,7 +117,9 @@ fun SearchUserScreen(
                                     error.failure.toErrorString<SearchUserError>(context) {
                                         when (it) {
                                             SearchUserError.InvalidQuery -> context.getString(R.string.error_invalid_query)
-                                            SearchUserError.RateLimitExceeded -> context.getString(R.string.error_rate_limit_exceeded)
+                                            SearchUserError.RateLimitExceeded -> context.getString(
+                                                R.string.error_rate_limit_exceeded
+                                            )
                                         }
                                     }
                                 }
@@ -137,11 +138,11 @@ fun SearchUserScreen(
                                     textAlign = TextAlign.Center
                                 )
 
-                                Spacer(modifier = Modifier.height(Dimens.mediumSpacing))
+                                Spacer(modifier = Modifier.height(Dimens.size8))
 
                                 Button(
                                     onClick = { userPagingItems.refresh() },
-                                    modifier = Modifier.padding(Dimens.smallPadding)
+                                    modifier = Modifier.padding(Dimens.size8)
                                 ) {
                                     Text(text = LocalContext.current.getString(R.string.retry))
                                 }
@@ -149,8 +150,7 @@ fun SearchUserScreen(
                         }
 
                         // Show empty results message
-                        userPagingItems.itemCount == 0 && viewState.query.isNotBlank() &&
-                                userPagingItems.loadState.refresh is LoadState.NotLoading -> {
+                        userPagingItems.itemCount == 0 && viewState.query.isNotBlank() && userPagingItems.loadState.refresh is LoadState.NotLoading -> {
                             EmptyResultsMessage(modifier = Modifier.align(Alignment.Center))
                         }
 
@@ -160,7 +160,9 @@ fun SearchUserScreen(
                         }
 
                         // Show the list with paging
-                        else -> UserList(pagingItems = userPagingItems, onUserClick = onUserClick)
+                        else -> UserList(
+                            pagingItems = userPagingItems, onUserClick = onUserClick
+                        )
                     }
                 }
             }
@@ -169,7 +171,7 @@ fun SearchUserScreen(
                 hostState = snackBarHostState,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(Dimens.mediumPadding)
+                    .padding(Dimens.size16)
             ) {
                 Snackbar { Text(text = it.visuals.message) }
             }
@@ -190,7 +192,7 @@ private fun SearchBar(
         onValueChange = onQueryChange,
         placeholder = { Text(text = context.getString(R.string.search_placeholder)) },
         modifier = modifier,
-        shape = RoundedCornerShape(Dimens.largeCornerRadius),
+        shape = RoundedCornerShape(Dimens.size12),
         singleLine = true,
         leadingIcon = {
             Icon(
@@ -208,29 +210,24 @@ private fun SearchBar(
                     )
                 }
             }
-        }
-    )
+        })
 }
 
 @Composable
 private fun UserList(
     pagingItems: LazyPagingItems<GithubUser>,
-    onUserClick: (String) -> Unit
+    onUserClick: (String) -> Unit,
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(vertical = Dimens.smallPadding),
-        verticalArrangement = Arrangement.spacedBy(Dimens.mediumSpacing)
+        contentPadding = PaddingValues(vertical = Dimens.size8),
+        verticalArrangement = Arrangement.spacedBy(Dimens.size8)
     ) {
         items(
-            count = pagingItems.itemCount,
-            key = pagingItems.itemKey { it.username }
-        ) { index ->
+            count = pagingItems.itemCount, key = pagingItems.itemKey { it.username }) { index ->
             val user = pagingItems[index]
             if (user != null) {
                 UserListItem(
-                    user = user,
-                    onClick = { onUserClick(user.username) }
-                )
+                    user = user, onClick = { onUserClick(user.username) })
             }
         }
 
@@ -241,11 +238,10 @@ private fun UserList(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(Dimens.buttonHeight + Dimens.smallIconSize)
-                            .padding(Dimens.smallPadding),
-                        contentAlignment = Alignment.Center
+                            .height(Dimens.size44 + Dimens.size16)
+                            .padding(Dimens.size8), contentAlignment = Alignment.Center
                     ) {
-                        CircularProgressIndicator(modifier = Modifier.size(Dimens.mediumIconSize))
+                        CircularProgressIndicator(modifier = Modifier.size(Dimens.size24))
                     }
                 }
             }
@@ -259,39 +255,36 @@ private fun UserList(
 private fun UserListItem(
     modifier: Modifier = Modifier,
     user: GithubUser,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        elevation = CardDefaults.cardElevation(defaultElevation = Dimens.elevation / 2),
-        shape = RoundedCornerShape(Dimens.mediumCornerRadius)
+        elevation = CardDefaults.cardElevation(defaultElevation = Dimens.size4 / 2),
+        shape = RoundedCornerShape(Dimens.size8)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Dimens.mediumPadding - 4.dp),
+                .padding(Dimens.size16 - 4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(user.avatarUrl)
-                    .crossfade(true)
-                    .build(),
+                model = ImageRequest.Builder(LocalContext.current).data(user.avatarUrl)
+                    .crossfade(true).build(),
                 contentDescription = LocalContext.current.getString(R.string.user_avatar_description),
                 contentScale = ContentScale.Inside,
                 modifier = Modifier
-                    .size(Dimens.largeIconSize + Dimens.smallIconSize)
+                    .size(Dimens.size32 + Dimens.size16)
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.surfaceVariant)
             )
 
-            Spacer(modifier = Modifier.width(Dimens.largeSpacing))
+            Spacer(modifier = Modifier.width(Dimens.size16))
 
             Text(
-                text = user.username,
-                style = MaterialTheme.typography.titleMedium
+                text = user.username, style = MaterialTheme.typography.titleMedium
             )
         }
     }
@@ -300,15 +293,14 @@ private fun UserListItem(
 @Composable
 private fun EmptyResultsMessage(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = LocalContext.current.getString(R.string.no_users_found),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(Dimens.mediumSpacing))
+        Spacer(modifier = Modifier.height(Dimens.size8))
         Text(
             text = LocalContext.current.getString(R.string.try_different_search),
             style = MaterialTheme.typography.bodyMedium,
@@ -321,15 +313,14 @@ private fun EmptyResultsMessage(modifier: Modifier = Modifier) {
 @Composable
 private fun InitialStateMessage(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = LocalContext.current.getString(R.string.search_github_users),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.height(Dimens.mediumSpacing))
+        Spacer(modifier = Modifier.height(Dimens.size8))
         Text(
             text = LocalContext.current.getString(R.string.enter_username_to_start),
             style = MaterialTheme.typography.bodyMedium,

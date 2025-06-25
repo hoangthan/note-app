@@ -29,4 +29,5 @@ dependencies {
     kapt libs.hilt.compiler
     implementation project(path: ':features:core')
     implementation project(path: ':features:github')
+    implementation libs.bundles.navigation
 }

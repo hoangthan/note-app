@@ -165,7 +165,7 @@ class GithubRepositoryImplTest {
     }
 
     @Test
-    fun `getUserDetail with rate limit error returns UnknownException`() = runTest {
+    fun `getUserDetail with rate limit error returns ExceedRateLimit error`() = runTest {
         // Given
         val username = "testuser"
         val errorResponse = Response.error<GithubUserDetailDto>(
@@ -180,7 +180,7 @@ class GithubRepositoryImplTest {
 
         // Then
         assertTrue(result.isError)
-        assertEquals(UnknownException, result.failureOrNull)
+        assertEquals(GetUserDetailError.ExceedRateLimit, result.failureOrNull)
     }
 
     @Test
@@ -272,7 +272,7 @@ class GithubRepositoryImplTest {
     }
 
     @Test
-    fun `getUserRepos with rate limit error returns UnknownException`() = runTest {
+    fun `getUserRepos with rate limit error returns ExceedRateLimit error`() = runTest {
         // Given
         val username = "testuser"
         val limit = 10
@@ -289,7 +289,7 @@ class GithubRepositoryImplTest {
 
         // Then
         assertTrue(result.isError)
-        assertEquals(UnknownException, result.failureOrNull)
+        assertEquals(GetUserReposError.ExceedRateLimit, result.failureOrNull)
     }
 
     @Test

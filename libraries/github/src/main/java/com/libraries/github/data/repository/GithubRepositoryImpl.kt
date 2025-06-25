@@ -46,6 +46,7 @@ internal class GithubRepositoryImpl @Inject constructor(
         return response.toResult(successMapper = { it.toDomain() }, errorMapper = {
             when (it.statusCode.code) {
                 HttpURLConnection.HTTP_NOT_FOUND -> GetUserDetailError.UserNotFound
+                HttpURLConnection.HTTP_FORBIDDEN -> GetUserDetailError.ExceedRateLimit
                 else -> null
             }
         })
@@ -66,6 +67,7 @@ internal class GithubRepositoryImpl @Inject constructor(
             errorMapper = {
                 when (it.statusCode.code) {
                     HttpURLConnection.HTTP_NOT_FOUND -> GetUserReposError.UserNotFound
+                    HttpURLConnection.HTTP_FORBIDDEN -> GetUserReposError.ExceedRateLimit
                     else -> null
                 }
             })

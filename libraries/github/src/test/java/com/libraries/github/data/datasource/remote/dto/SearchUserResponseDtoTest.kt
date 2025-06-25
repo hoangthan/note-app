@@ -14,8 +14,8 @@ class SearchUserResponseDtoTest {
             avatarUrl = "https://google.com/username.png"
         )
         val userDto2 = GithubUserDto(
-            login = "defunkt",
-            avatarUrl = "https://google.com/defunkt.png"
+            login = "secondUsername",
+            avatarUrl = "https://google.com/secondUsername.png"
         )
         val items = listOf(userDto1, userDto2)
         
@@ -32,8 +32,8 @@ class SearchUserResponseDtoTest {
         assertEquals(2, responseDto.items.size)
         assertEquals("username", responseDto.items[0].login)
         assertEquals("https://google.com/username.png", responseDto.items[0].avatarUrl)
-        assertEquals("defunkt", responseDto.items[1].login)
-        assertEquals("https://google.com/defunkt.png", responseDto.items[1].avatarUrl)
+        assertEquals("secondUsername", responseDto.items[1].login)
+        assertEquals("https://google.com/secondUsername.png", responseDto.items[1].avatarUrl)
     }
 
     @Test
@@ -44,8 +44,8 @@ class SearchUserResponseDtoTest {
             avatarUrl = "https://google.com/username.png"
         )
         val userDto2 = GithubUserDto(
-            login = "defunkt",
-            avatarUrl = "https://google.com/defunkt.png"
+            login = "secondUsername",
+            avatarUrl = "https://google.com/secondUsername.png"
         )
         val items = listOf(userDto1, userDto2)
         
@@ -62,7 +62,7 @@ class SearchUserResponseDtoTest {
         assertEquals(2, domainUsers.size)
         assertEquals("username", domainUsers[0].username)
         assertEquals("https://google.com/username.png", domainUsers[0].avatarUrl)
-        assertEquals("defunkt", domainUsers[1].username)
-        assertEquals("https://google.com/defunkt.png", domainUsers[1].avatarUrl)
+        assertEquals("secondUsername", domainUsers[1].username)
+        assertEquals("https://google.com/secondUsername.png", domainUsers[1].avatarUrl)
     }
 }

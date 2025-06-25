@@ -14,7 +14,7 @@ import com.git.features.core.ui.style.Dimens
 @Composable
 fun LoadingView(
     modifier: Modifier = Modifier,
-    size: Int = Dimens.largeIconSize.value.toInt()
+    size: Int = Dimens.size32.value.toInt()
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -23,7 +23,7 @@ fun LoadingView(
         CircularProgressIndicator(
             modifier = Modifier.size(size.dp),
             color = MaterialTheme.colorScheme.primary,
-            strokeWidth = Dimens.smallPadding / 4
+            strokeWidth = Dimens.size8 / 4
         )
     }
 }

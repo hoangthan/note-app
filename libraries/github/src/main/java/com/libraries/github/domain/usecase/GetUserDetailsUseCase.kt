@@ -8,6 +8,7 @@ import javax.inject.Inject
 
 sealed interface GetUserDetailError : FailureError {
     object UserNotFound : GetUserDetailError
+    object ExceedRateLimit : GetUserDetailError
 }
 
 data class GetUserDetailParam(
